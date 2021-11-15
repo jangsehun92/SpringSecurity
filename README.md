@@ -16,4 +16,6 @@ Springboot 2.5.6 환경에서 SpringSecurity를 적용해본다.
 - spring-boot-starter-data-jpa
 - spring-boot-starter-web
 - lombok
-- mysql-connector-java
+
+**DB**
+- H2
