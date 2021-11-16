@@ -18,7 +18,7 @@ public class CustomWebSecurityConfiguration extends WebSecurityConfigurerAdapter
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/h2-console/**").permitAll() //h2 console 접근 허용
                 .and()
             .csrf().disable();
     }
