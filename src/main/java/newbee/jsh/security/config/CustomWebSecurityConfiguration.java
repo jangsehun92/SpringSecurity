@@ -21,13 +21,15 @@ public class CustomWebSecurityConfiguration extends WebSecurityConfigurerAdapter
                 .antMatchers(
                     "/h2-console/**",
                     "/sign-in.html",
-                    "/sign-up.html").permitAll() //h2 console 접근 허용
+                    "/sign-up.html"
+                    ).permitAll() //h2 console 접근 허용
                 .antMatchers(
-                    "/user.html"
-                ).hasRole("USER")
+                    "/user.html",
+                    "/main.html"
+                    ).hasRole("USER")
                 .antMatchers(
                     "/admin.html"
-                ).hasRole("ADMIN")
+                    ).hasRole("ADMIN")
                 .and()
             .csrf().disable();
     }

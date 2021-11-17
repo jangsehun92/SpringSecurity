@@ -21,6 +21,12 @@ public class ViewController {
         return "sign-up";
     }
 
+    @GetMapping("/main.html")
+    public String mainPage(){
+        log.info("GET /main.html");
+        return "main";
+    }
+
     @GetMapping("/user.html")
     public String userPage(){
         log.info("GET /user.html");
