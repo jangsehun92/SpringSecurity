@@ -5,9 +5,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.extern.slf4j.Slf4j;
 
+
 @Slf4j
 @Controller
 public class ViewController {
+
+    @GetMapping(value="/")
+    public String indexPage() {
+        return "index";
+    }
+    
 
     @GetMapping("/sign-in.html")
     public String signInPage(){
@@ -19,12 +26,6 @@ public class ViewController {
     public String signUpPage(){
         log.info("GET /sign-in");
         return "sign-up";
-    }
-
-    @GetMapping("/main.html")
-    public String mainPage(){
-        log.info("GET /main.html");
-        return "main";
     }
 
     @GetMapping("/user.html")
