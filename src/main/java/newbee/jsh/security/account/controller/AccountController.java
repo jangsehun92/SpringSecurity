@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import newbee.jsh.security.account.dto.request.RequestCreateAccountDto;
-import newbee.jsh.security.account.enums.AccountRole;
 
 
 @Slf4j
@@ -20,17 +19,16 @@ import newbee.jsh.security.account.enums.AccountRole;
 public class AccountController {
 
     //계정생성
-    @PostMapping(value="/account")
+    @PostMapping(value="/api/account")
     public ResponseEntity<HttpStatus> createAccount(@RequestBody RequestCreateAccountDto dto) {
         log.info("POST /account {}", dto.toString());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //계정 정보 가져오기
-    @GetMapping(value="/accounts/{id}")
+    @GetMapping(value="/api/accounts/{id}")
     public ResponseEntity<HttpStatus> getAccount(@PathVariable("id") Long id){
         log.info("GET /accounts/{}", id);
-        AccountRole.valueOf("arg0");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
