@@ -43,9 +43,6 @@ public class AccountControllerTest {
                         .standaloneSetup(accountController)
                         .addFilters(new CharacterEncodingFilter("UTF-8", true))
                         .alwaysDo(MockMvcResultHandlers.print()).build();
-
-        
-        
     }
     
     @Test
@@ -55,7 +52,7 @@ public class AccountControllerTest {
         final String email = "email@email.com";
         final String password = "password";
         final String name = "name";
-        final String role = "USER";
+        final String role = "ROLE_USER";
 
         jsonObject.put("email", email);
         jsonObject.put("password", password);
@@ -75,17 +72,4 @@ public class AccountControllerTest {
         assertEquals(response.getStatus(), HttpStatus.OK.value());
     }
 
-    @Test
-    @DisplayName("계정 정보 가져오기 요청")
-    void getAccountById() throws Exception{
-        //given
-        final Long id = 1L;
-
-        //when
-        final MockHttpServletResponse response = mvc.perform(MockMvcRequestBuilders
-                                                                .get("/api/accounts/{id}", id))
-                                                                .andReturn().getResponse();
-                                                                                           
-        assertEquals(response.getStatus(), HttpStatus.OK.value());
-    }
 }

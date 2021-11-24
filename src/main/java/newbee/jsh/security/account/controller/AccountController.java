@@ -2,8 +2,6 @@ package newbee.jsh.security.account.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,15 +23,4 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //계정 정보 가져오기
-    @GetMapping(value="/api/accounts/{id}")
-    public ResponseEntity<HttpStatus> getAccount(@PathVariable("id") Long id){
-        log.info("GET /accounts/{}", id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    
-
-
-    
 }
