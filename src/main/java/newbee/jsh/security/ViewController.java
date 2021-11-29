@@ -2,6 +2,8 @@ package newbee.jsh.security;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -10,21 +12,20 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class ViewController {
 
-    @GetMapping(value="/")
+    @RequestMapping(value="/", method={RequestMethod.GET, RequestMethod.POST})
     public String indexPage() {
         return "index";
     }
     
-
-    @GetMapping("/sign-in.html")
+    @RequestMapping(value="/sign-in.html", method={RequestMethod.GET, RequestMethod.POST})
     public String signInPage(){
-        log.info("GET /sign-in");
+        log.info("GET /sign-in.html");
         return "sign-in";
     }
 
     @GetMapping("/sign-up.html")
     public String signUpPage(){
-        log.info("GET /sign-in");
+        log.info("GET /sign-up.html");
         return "sign-up";
     }
 

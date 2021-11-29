@@ -3,10 +3,27 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>SIGN UP PAGE</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/account.js"></script>
 </head>
 <body>
     <H2>SIGN UP PAGE</H2>
+    
+    <div>
+        <label>EMAIL</label> <br>
+        <input type="text" id="email"> <br>
+        <label>PASSWORD</label> <br>
+        <input type="password" id="password"> <br>
+        <label>NAME</label> <br>
+        <input type="text" id="name"> <br>
+        <label>ROLE</label> <br>
+        <input type="text" id="role"> <br>
+        <button id="createAccountButton">CREATE</button>
+    </div>
 </body>
 </html>

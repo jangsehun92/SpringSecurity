@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,10 +38,26 @@ public class CustomWebSecurityConfiguration extends WebSecurityConfigurerAdapter
         auth.authenticationProvider(authenticationProvider());
     }
 
+    // @Bean
+    // public AuthenticationFailureHandler authenticationFailureHandler(){
+
+    // }
+
+    // @Bean
+    // public AuthenticationEntryPoint authenticationEntryPoint(){
+
+    // }
+
+    // @Bean
+    // public AccessDeniedHandler accessDeniedHandler(){
+
+    // }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers(
+                    "/",
                     "/h2-console/**",
                     "/sign-up.html"
                     ).permitAll() //h2 console 접근 허용
@@ -56,8 +73,7 @@ public class CustomWebSecurityConfiguration extends WebSecurityConfigurerAdapter
                     .loginProcessingUrl("/account/sign-in") //인증처리를 하는 URL 설정 Client단에서 해당 url로 요청을 해야한다.
                     .usernameParameter("email") //로그인 시 username에 해당하는 변수명 설정
                     .passwordParameter("password") //로그인 시 password에 해당하는 변수명 설정
-                    .defaultSuccessUrl("/") //로그인에 성공시 이동해줄 Url 설정
-                    .failureUrl("/?error=true") //로그인에 실패시 이동할 Url 지정
+                    .successForwardUrl("/") //로그인에 성공시 이동해줄 Url 설정
                     .permitAll() //인증 없이 접근 허용
                 .and()
                     .logout() //로그아웃 관련 설정
