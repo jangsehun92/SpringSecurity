@@ -26,7 +26,7 @@ public class AccountServiceImpl implements AccountService {
                                     .password(dto.getPassword())
                                     .name(dto.getName())
                                     .regDate(LocalDateTime.now())
-                                    .roles(Collections.singleton(getRole(dto.getRole()))).build());
+                                    .roles(Collections.singleton(getRole("ROLE_"+dto.getRole()))).build());
     }
 
     private Role getRole(final String roleValue){

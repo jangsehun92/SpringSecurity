@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>ERROR PAGE</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <H2>ERROR - <span th:text="${errorResponse?.status}"></span></H2>
+    <H2><span th:text="${errorResponse?.message}"></span></H2>
+</body>
+</html>

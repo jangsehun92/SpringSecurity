@@ -1,8 +1,4 @@
-$(document).on("click","#createAccountButton", function(){
-    test();
-});
-
-function test(){
+function createAccount(){
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     let name = document.getElementById("name").value;
@@ -16,6 +12,5 @@ function test(){
     };
 
     console.log(requestCreateAccountDto);
-
 
 }
