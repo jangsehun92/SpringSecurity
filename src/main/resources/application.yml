@@ -32,7 +32,7 @@ spring:
         check-template-location: true
         suffix: .html
         mode: HTML5
-        characterEncoding: utf-8
+        cache: false
         prefix: classpath:/templates/
         
         

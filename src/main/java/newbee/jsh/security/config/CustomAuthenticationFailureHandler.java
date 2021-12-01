@@ -12,6 +12,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import lombok.RequiredArgsConstructor;
+import newbee.jsh.security.global.error.ErrorResponse;
+import newbee.jsh.security.global.error.exception.ErrorCode;
 
 @RequiredArgsConstructor
 public class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler{
@@ -22,17 +24,18 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         
         if(exception instanceof InternalAuthenticationServiceException){
-            dispatcherForward(request, response, signInPage, "계정을 찾을 수 없습니다.");
+            dispatcherForward(request, response, signInPage, ErrorCode.ACCOUNT_NOT_FOUND);
         }
 
         if(exception instanceof BadCredentialsException){
-            dispatcherForward(request, response, signInPage, "비밀번호가 다릅니다.");
+            dispatcherForward(request, response, signInPage, ErrorCode.PASSWORD_NOT_MATCH);
         }
+
     }
 
-    private void dispatcherForward(HttpServletRequest request, HttpServletResponse response, String url, String message) throws IOException, ServletException{
-        request.setAttribute("email", request.getAttribute("email"));
-        request.setAttribute("errorMessage", message);
+    private void dispatcherForward(HttpServletRequest request, HttpServletResponse response, String url, ErrorCode errorCode) throws IOException, ServletException{
+        request.setAttribute("email", request.getParameter("email"));
+        request.setAttribute("errorResponse", ErrorResponse.of(errorCode));
         request.getRequestDispatcher(url).forward(request, response);
     }
 

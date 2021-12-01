@@ -1,6 +1,8 @@
 package newbee.jsh.security.config;
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +16,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 
 import lombok.RequiredArgsConstructor;
 
+@Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class CustomWebSecurityConfiguration extends WebSecurityConfigurerAdapter{
@@ -48,6 +51,7 @@ public class CustomWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 
     @Override
     public void configure(WebSecurity web) throws Exception {
+        web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
         web.ignoring().antMatchers("/h2-console/**");
     }
 
@@ -58,40 +62,38 @@ public class CustomWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.csrf()
+                .ignoringAntMatchers("/h2-console/**")
+            .and()
+                .authorizeRequests()
                 .antMatchers(
                     "/",
                     "/h2-console/**",
-                    "/sign-up.html"
-                    ).permitAll() //h2 console 접근 허용
+                    "/sign-up.html")
+                .permitAll() //h2 console 접근 허용
                 .antMatchers(
                     "/user.html"
-                    ).hasRole("USER")
+                    )
+                .hasRole("USER")
                 .antMatchers(
                     "/admin.html"
-                    ).hasRole("ADMIN")
-                .and()
-                    .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
-                    .authenticationEntryPoint(authenticationEntryPoint())
-                .and()
-                    .formLogin() //Form 로그인 허용 (Session 기반으로 설정)
-                    .loginPage("/") //로그인을 처리할 페이지 URL 설정
-                    .loginProcessingUrl("/account/sign-in") //인증처리를 하는 URL 설정 Client단에서 해당 url로 요청을 해야한다.
-                    .usernameParameter("email") //로그인 시 username에 해당하는 변수명 설정
-                    .passwordParameter("password") //로그인 시 password에 해당하는 변수명 설정
-                    .successForwardUrl("/") //로그인에 성공시 이동해줄 Url 설정
-                    .failureHandler(authenticationFailureHandler())
-                    .permitAll() //인증 없이 접근 허용
-                .and()
-                    .logout() //로그아웃 관련 설정
-                    .logoutUrl("/account/sign-out") //로그아웃 URL
-                    .logoutSuccessUrl("/") //로그아웃 성공시 이동할 Url 설정
-                .and()
-            .csrf()
-                .ignoringAntMatchers("/h2-console/**");
-            
+                    )
+                .hasRole("ADMIN")
+            .and()
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+                .authenticationEntryPoint(authenticationEntryPoint())
+            .and()
+                .formLogin() //Form 로그인 허용 (Session 기반으로 설정)
+                .loginPage("/") //로그인 페이지 설정
+                .loginProcessingUrl("/account/login") //로그인의 인증처리를 하는 URL 설정 Client단에서 해당 url로 요청을 해야한다.
+                .usernameParameter("email") //로그인 시 username에 해당하는 변수명 설정
+                .passwordParameter("password") //로그인 시 password에 해당하는 변수명 설정
+                .successForwardUrl("/") //로그인에 성공시 이동해줄 Url 설정
+                .failureHandler(authenticationFailureHandler())
+            .and()
+                .logout() //로그아웃 관련 설정
+                .logoutUrl("/account/sign-out") //로그아웃 URL
+                .logoutSuccessUrl("/"); //로그아웃 성공시 이동할 Url 설정
     }
 
-
-    
 }

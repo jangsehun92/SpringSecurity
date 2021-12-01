@@ -14,13 +14,8 @@ public class ViewController {
 
     @RequestMapping(value="/", method={RequestMethod.GET, RequestMethod.POST})
     public String indexPage() {
+        log.info("[ GET, POST ] /");
         return "index";
-    }
-    
-    @RequestMapping(value="/sign-in.html", method={RequestMethod.GET, RequestMethod.POST})
-    public String signInPage(){
-        log.info("GET /sign-in.html");
-        return "sign-in";
     }
 
     @GetMapping("/sign-up.html")

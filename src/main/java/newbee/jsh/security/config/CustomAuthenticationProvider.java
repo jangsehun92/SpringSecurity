@@ -23,7 +23,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         final String password = (String)authentication.getCredentials();
 
         final Account account = (Account)customUserDetailsServiceImpl.loadUserByUsername(email);
-
         if(account == null){
             throw new InternalAuthenticationServiceException(email);
         }
@@ -36,7 +35,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return authentication.equals(UsernamePasswordAuthenticationToken.class);
+        return true;
     }
     
 }
