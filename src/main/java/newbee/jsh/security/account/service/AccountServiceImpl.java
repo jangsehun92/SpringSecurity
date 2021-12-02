@@ -3,6 +3,7 @@ package newbee.jsh.security.account.service;
 import java.time.LocalDateTime;
 import java.util.Collections;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -18,15 +19,16 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
     private final RoleRepository roleRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     
     @Override
     public void createAccount(final RequestCreateAccountDto dto) {
         accountRepository.save(Account.builder()
                                     .email(dto.getEmail())
-                                    .password(dto.getPassword())
+                                    .password(bCryptPasswordEncoder.encode(dto.getPassword()))
                                     .name(dto.getName())
                                     .regDate(LocalDateTime.now())
-                                    .roles(Collections.singleton(getRole("ROLE_"+dto.getRole()))).build());
+                                    .roles(Collections.singleton(getRole(dto.getRole()))).build());
     }
 
     private Role getRole(final String roleValue){

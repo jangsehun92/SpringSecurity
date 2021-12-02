@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import net.minidev.json.JSONObject;
 import newbee.jsh.security.account.dto.request.RequestCreateAccountDto;
@@ -32,13 +33,16 @@ class AccountServiceTest {
     @Mock
     private RoleRepository roleRepository;
 
+    @Mock
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     private JSONObject jsonObject;
 
     private ObjectMapper objectMapper;
 
     @BeforeEach
     void before(){
-        this.accountService = new AccountServiceImpl(accountRepository, roleRepository);
+        this.accountService = new AccountServiceImpl(accountRepository, roleRepository, bCryptPasswordEncoder);
         this.jsonObject = new JSONObject();
         this.objectMapper = new ObjectMapper();
     }

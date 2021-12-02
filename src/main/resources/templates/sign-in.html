@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html 
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>SIGN IN PAGE</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <H2>SIGN IN PAGE</H2>
+
+    <form th:action="@{/account/sign-in}" method="POST">
+        <!-- th:action 설정을 지정하면 Thymeleaf가 자동으로 전송해주기 때문에 주석 처리-->
+        <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/> -->
+        <div>
+            <label>ID</label>
+            <input type="text" id="email" name="email" th:value="${email}">
+        </div>
+        <div>
+            <label>PW</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <p><span th:text="${errorResponse?.message}"></span></p>
+        <button type="submit">SIGN IN</button>
+    </form>
+    
+    <div>
+        <a href="/sign-up.html">SIGN UP</a>
+    </div>
+</body>
+</html>

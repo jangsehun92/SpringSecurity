@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CustomWebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
-    private static final String SIGN_IN_PAGE = "/";
+    private static final String SIGN_IN_PAGE = "/sign-in.html";
     private final CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
 
     @Bean
@@ -67,25 +67,24 @@ public class CustomWebSecurityConfiguration extends WebSecurityConfigurerAdapter
             .and()
                 .authorizeRequests()
                 .antMatchers(
-                    "/",
                     "/h2-console/**",
+                    "/sign-in.html",
                     "/sign-up.html")
                 .permitAll() //h2 console 접근 허용
                 .antMatchers(
-                    "/user.html"
-                    )
-                .hasRole("USER")
+                    "/",
+                    "/user.html")
+                .authenticated()
                 .antMatchers(
-                    "/admin.html"
-                    )
+                    "/admin.html")
                 .hasRole("ADMIN")
             .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
                 .authenticationEntryPoint(authenticationEntryPoint())
             .and()
                 .formLogin() //Form 로그인 허용 (Session 기반으로 설정)
-                .loginPage("/") //로그인 페이지 설정
-                .loginProcessingUrl("/account/login") //로그인의 인증처리를 하는 URL 설정 Client단에서 해당 url로 요청을 해야한다.
+                .loginPage("/sign-in.html") //로그인 페이지 설정
+                .loginProcessingUrl("/account/sign-in") //로그인의 인증처리를 하는 URL 설정 Client단에서 해당 url로 요청을 해야한다.
                 .usernameParameter("email") //로그인 시 username에 해당하는 변수명 설정
                 .passwordParameter("password") //로그인 시 password에 해당하는 변수명 설정
                 .successForwardUrl("/") //로그인에 성공시 이동해줄 Url 설정
@@ -93,7 +92,7 @@ public class CustomWebSecurityConfiguration extends WebSecurityConfigurerAdapter
             .and()
                 .logout() //로그아웃 관련 설정
                 .logoutUrl("/account/sign-out") //로그아웃 URL
-                .logoutSuccessUrl("/"); //로그아웃 성공시 이동할 Url 설정
+                .logoutSuccessUrl("/sign-in.html"); //로그아웃 성공시 이동할 Url 설정
     }
 
 }

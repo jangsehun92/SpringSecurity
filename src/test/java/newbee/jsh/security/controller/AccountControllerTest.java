@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,11 +22,15 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import net.minidev.json.JSONObject;
 import newbee.jsh.security.account.controller.AccountController;
 import newbee.jsh.security.account.dto.request.RequestCreateAccountDto;
+import newbee.jsh.security.account.service.AccountService;
 
 @ExtendWith(MockitoExtension.class)
 public class AccountControllerTest {
 
     private AccountController accountController;
+
+    @Mock
+    private AccountService accountService;
 
     private JSONObject jsonObject;
 
@@ -35,7 +40,7 @@ public class AccountControllerTest {
 
     @BeforeEach
     void before(){
-        this.accountController = new AccountController();
+        this.accountController = new AccountController(accountService);
         this.jsonObject = new JSONObject();
         this.objectMapper = new ObjectMapper();
 

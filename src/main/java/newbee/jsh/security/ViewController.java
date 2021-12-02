@@ -1,21 +1,32 @@
 package newbee.jsh.security;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import lombok.extern.slf4j.Slf4j;
+import newbee.jsh.security.account.entity.Account;
 
 
 @Slf4j
 @Controller
 public class ViewController {
 
-    @RequestMapping(value="/", method={RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping("/")
     public String indexPage() {
         log.info("[ GET, POST ] /");
         return "index";
+    }
+
+    @RequestMapping("/sign-in.html")
+    public String signInPage(@AuthenticationPrincipal Account account){
+        log.info("[ GET, POST ] /sign-in.html");
+            
+        if(account != null){
+            return "redirect:/";
+        }
+        return "sign-in";
     }
 
     @GetMapping("/sign-up.html")

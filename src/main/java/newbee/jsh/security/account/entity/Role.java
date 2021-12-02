@@ -10,7 +10,6 @@ import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -19,9 +18,10 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-@Getter
 @ToString
 public class Role {
+
+    private final static String ROLE_PREFIX = "ROLE_";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +30,14 @@ public class Role {
 
     @Column
     private String value;
+
+    public Long getId(){
+        return id;
+    }
+
+    public String getValue(){
+        return ROLE_PREFIX + value;
+    }
 
     
 }
