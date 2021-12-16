@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import newbee.jsh.security.account.dto.request.RequestCreateAccountDto;
 import newbee.jsh.security.account.service.AccountService;
 
-
 @Slf4j
 @RestController
 @RequiredArgsConstructor
